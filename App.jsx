@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { LogOut, Settings, TrendingUp, Users, Target, Briefcase } from 'lucide-react';
 
-// Dummy-Daten für Demo (später würde das von Firebase kommen)
+// Dummy-Daten
 const initialData = {
   customers: [
     {
@@ -76,14 +76,12 @@ const initialData = {
   ]
 };
 
-// Service-Info
 const serviceInfo = {
   webdesign: { icon: Briefcase, label: 'Webdesign', color: '#1e40af' },
   marketing: { icon: Target, label: 'Marketing', color: '#059669' },
   recruiting: { icon: Users, label: 'Recruiting', color: '#7c3aed' }
 };
 
-// Login Screen
 function LoginScreen({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -172,7 +170,6 @@ function LoginScreen({ onLogin }) {
   );
 }
 
-// Customer Dashboard
 function CustomerDashboard({ customer, onLogout }) {
   const totalVisitors = Object.values(customer.services).reduce((sum, s) => sum + s.visitors, 0);
   const totalConversions = Object.values(customer.services).reduce((sum, s) => sum + s.conversions, 0);
@@ -186,7 +183,6 @@ function CustomerDashboard({ customer, onLogout }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-slate-100">
-      {/* Header */}
       <div className="bg-gradient-to-r from-slate-900 via-teal-900 to-slate-800 text-white p-6 shadow-lg">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div>
@@ -204,16 +200,13 @@ function CustomerDashboard({ customer, onLogout }) {
       </div>
 
       <div className="max-w-7xl mx-auto p-6 space-y-6">
-        {/* KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <KPICard icon={TrendingUp} label="Besucher" value={totalVisitors} unit="Monat" color="from-blue-600 to-blue-400" />
           <KPICard icon={Target} label="Conversions" value={totalConversions} unit="Monat" color="from-teal-600 to-teal-400" />
           <KPICard icon={Briefcase} label="Budget" value={`€${totalBudget}`} unit="Monat" color="from-purple-600 to-purple-400" />
         </div>
 
-        {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Trend Chart */}
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h2 className="text-xl font-bold text-slate-900 mb-4">Entwicklung über Zeit</h2>
             <ResponsiveContainer width="100%" height={300}>
@@ -229,7 +222,6 @@ function CustomerDashboard({ customer, onLogout }) {
             </ResponsiveContainer>
           </div>
 
-          {/* Service Distribution */}
           {serviceDistribution.length > 0 ? (
             <div className="bg-white rounded-xl shadow-lg p-6">
               <h2 className="text-xl font-bold text-slate-900 mb-4">Service-Verteilung</h2>
@@ -251,7 +243,6 @@ function CustomerDashboard({ customer, onLogout }) {
           )}
         </div>
 
-        {/* Service Details */}
         <div className="bg-white rounded-xl shadow-lg p-6">
           <h2 className="text-xl font-bold text-slate-900 mb-4">Service-Details</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -284,7 +275,6 @@ function CustomerDashboard({ customer, onLogout }) {
   );
 }
 
-// Admin Panel
 function AdminPanel({ onLogout }) {
   const [editingCustomer, setEditingCustomer] = useState(null);
   const [formData, setFormData] = useState({});
@@ -316,7 +306,6 @@ function AdminPanel({ onLogout }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-slate-100">
-      {/* Header */}
       <div className="bg-gradient-to-r from-slate-900 via-teal-900 to-slate-800 text-white p-6 shadow-lg">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-4">
@@ -419,7 +408,6 @@ function AdminPanel({ onLogout }) {
   );
 }
 
-// KPI Card Component
 function KPICard({ icon: Icon, label, value, unit, color }) {
   return (
     <div className={`bg-gradient-to-br ${color} text-white rounded-xl shadow-lg p-6`}>
@@ -435,8 +423,7 @@ function KPICard({ icon: Icon, label, value, unit, color }) {
   );
 }
 
-// Main App
-export default function Dashboard() {
+export default function App() {
   const [user, setUser] = useState(null);
 
   const handleLogin = (userData) => {

@@ -1,7 +1,6 @@
 {
   "name": "performance-dashboard",
   "version": "1.0.0",
-  "description": "Performance Dashboard für Kunden",
   "type": "module",
   "scripts": {
     "dev": "vite",
